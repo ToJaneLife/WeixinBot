@@ -23,8 +23,8 @@ import time
 
 
 cm = ConfigManager()
-db = SqliteDB(cm.getpath('database'))
-# db = MysqlDB(cm.mysql())
+# db = SqliteDB(cm.getpath('database'))
+db = MysqlDB(cm.mysql())
 wechat_msg_processor = WeChatMsgProcessor(db)
 wechat = WeChat(cm.get('wechat', 'host'))
 wechat.db = db
@@ -266,7 +266,7 @@ while True:
         Log.error(traceback.format_exc())
     finally:
         wechat.stop()
-    
+
     # send a mail to tell the wxbot is failing
     subject = 'wxbot stop message'
     log_file = open(eval(cm.get('handler_fileHandler', 'args'))[0], 'r')
